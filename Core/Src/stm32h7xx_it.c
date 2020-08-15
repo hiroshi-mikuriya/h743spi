@@ -184,7 +184,6 @@ void SysTick_Handler(void)
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
@@ -196,6 +195,44 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32h7xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles EXTI line4 interrupt.
+  */
+void EXTI4_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI4_IRQn 0 */
+  if (LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_4)) {
+    LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_4);
+    extern void EXTI4_IRQHandlerCB(void);
+    EXTI4_IRQHandlerCB();
+  }
+  /* USER CODE END EXTI4_IRQn 0 */
+  /* USER CODE BEGIN EXTI4_IRQn 1 */
+
+  /* USER CODE END EXTI4_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 stream0 global interrupt.
+  */
+void DMA1_Stream0_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
+  if (LL_DMA_IsActiveFlag_TC0(DMA1))
+  {
+    LL_DMA_ClearFlag_TC0(DMA1);
+    extern void DMA1_Stream0_IRQHandlerCB(void);
+    DMA1_Stream0_IRQHandlerCB();
+  }
+  /* USER CODE END DMA1_Stream0_IRQn 0 */
+  /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+  if (LL_DMA_IsActiveFlag_TE0(DMA1))
+  {
+    LL_DMA_ClearFlag_TE0(DMA1);
+  }
+  /* USER CODE END DMA1_Stream0_IRQn 1 */
+}
 
 /* USER CODE BEGIN 1 */
 
